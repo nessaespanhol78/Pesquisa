@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Integridade Científica & IA — IFB | Guia para TCC</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #f5f0e8;
+    --accent: #c0392b;
+    --gold: #b8860b;
+    --sage: #4a7c59;
+    --muted: #7a7065;
+    --light: #ede8df;
+    --warn: #e67e22;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border: 2px solid rgba(192,57,43,0.3);
+    border-radius: 50%;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 180px; height: 180px;
+    border: 1px solid rgba(184,134,11,0.25);
+    border-radius: 50%;
+  }
+
+  .header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    max-width: 700px;
+  }
+
+  header h1 span {
+    color: var(--gold);
+  }
+
+  .header-sub {
+    margin-top: 1rem;
+    font-size: 0.92rem;
+    color: rgba(245,240,232,0.7);
+    max-width: 600px;
+  }
+
+  .header-meta {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(245,240,232,0.5);
+  }
+
+  .header-meta span { color: var(--gold); margin-right: 4px; }
+
+  /* NAV */
+  nav {
+    background: var(--light);
+    border-bottom: 1px solid rgba(26,26,46,0.1);
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  nav::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 1rem 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .nav-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .nav-btn:hover { color: var(--ink); }
+
+  /* MAIN */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* TYPOGRAPHY */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 1.8rem 0 0.6rem;
+  }
+
+  p { margin-bottom: 1rem; color: #2c2c3e; font-size: 0.95rem; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+
+  .card {
+    background: white;
+    border-radius: 6px;
+    padding: 1.4rem;
+    border-left: 4px solid var(--sage);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .card.warn { border-left-color: var(--accent); }
+  .card.gold { border-left-color: var(--gold); }
+  .card.blue { border-left-color: #2980b9; }
+
+  .card-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+  .card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .card p { font-size: 0.84rem; margin: 0; color: var(--muted); }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 6px;
+    padding: 1.5rem 1.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .highlight h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .highlight p { color: rgba(245,240,232,0.88); font-size: 0.88rem; margin: 0; }
+
+  /* ALERT */
+  .alert {
+    border-radius: 6px;
+    padding: 1rem 1.4rem;
+    margin: 1.2rem 0;
+    font-size: 0.88rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+
+  .alert.red { background: #fdf0ef; border-left: 4px solid var(--accent); }
+  .alert.yellow { background: #fef9ef; border-left: 4px solid var(--gold); }
+  .alert.green { background: #eff7f2; border-left: 4px solid var(--sage); }
+
+  .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .alert p { margin: 0; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  th {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.8rem 1rem;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+  }
+
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--light);
+    color: #2c2c3e;
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--light); }
+
+  .badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .badge.leve { background: #e8f5e9; color: #2e7d32; }
+  .badge.grave { background: #fff3e0; color: #e65100; }
+  .badge.gravissima { background: #fce4ec; color: #c62828; }
+
+  /* QUIZ */
+  .quiz-container { margin: 1.5rem 0; }
+
+  .quiz-question {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-top: 3px solid var(--ink);
+  }
+
+  .quiz-question.correct { border-top-color: var(--sage); background: #f0f8f3; }
+  .quiz-question.incorrect { border-top-color: var(--accent); background: #fdf5f5; }
+
+  .quiz-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .quiz-text { font-weight: 500; font-size: 0.95rem; margin-bottom: 1rem; }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .quiz-opt {
+    background: var(--light);
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    transition: all 0.15s;
+    color: var(--ink);
+  }
+
+  .quiz-opt:hover:not(:disabled) { border-color: var(--ink); background: white; }
+  .quiz-opt.correct-ans { background: #d4edda; border-color: var(--sage); color: #1a5c2e; font-weight: 500; }
+  .quiz-opt.wrong-ans { background: #f8d7da; border-color: var(--accent); color: #8b1a1a; }
+
+  .quiz-feedback {
+    margin-top: 0.8rem;
+    padding: 0.7rem 1rem;
+    border-radius: 5px;
+    font-size: 0.84rem;
+    display: none;
+  }
+
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: #d4edda; color: #1a5c2e; }
+  .quiz-feedback.no { background: #f8d7da; color: #8b1a1a; }
+
+  .quiz-score {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    display: none;
+    margin-top: 1rem;
+  }
+
+  .quiz-score.show { display: block; }
+  .quiz-score-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold); }
+  .quiz-score-label { font-size: 0.88rem; color: rgba(245,240,232,0.7); margin-top: 0.3rem; }
+
+  .btn-reset {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.6rem 1.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: opacity 0.2s;
+  }
+
+  .btn-reset:hover { opacity: 0.85; }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; margin: 1rem 0; }
+
+  .checklist li {
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--light);
+    font-size: 0.9rem;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--muted);
+    border-radius: 4px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: white;
+    background: white;
+    transition: all 0.15s;
+    margin-top: 2px;
+  }
+
+  .check-box.checked { background: var(--sage); border-color: var(--sage); }
+
+  .check-text { flex: 1; }
+  .check-text.checked { text-decoration: line-through; color: var(--muted); }
+
+  /* TEMPLATE BOX */
+  .template-box {
+    background: white;
+    border: 1px solid rgba(26,26,46,0.15);
+    border-radius: 6px;
+    padding: 1.4rem 1.6rem;
+    margin: 1.2rem 0;
+    font-size: 0.88rem;
+    line-height: 1.8;
+  }
+
+  .template-box .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .template-box .fill {
+    background: #fef9ef;
+    border-bottom: 2px solid var(--gold);
+    padding: 0 4px;
+    font-style: italic;
+    color: #7a6010;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    margin: 2rem 0;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: rgba(245,240,232,0.5);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.78rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+  }
+
+  footer strong { color: var(--gold); }
+
+  /* PRINT */
+  .print-btn {
+    background: none;
+    border: 1px solid var(--muted);
+    border-radius: 4px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.78rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    cursor: pointer;
+    float: right;
+    margin-top: 4px;
+  }
+
+  .print-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+  @media print {
+    nav, .print-btn, .quiz-container { display: none !important; }
+    .section { display: block !important; }
+    header { background: none; color: var(--ink); }
+  }
+
+  @media (max-width: 600px) {
+    .card-grid { grid-template-columns: 1fr; }
+    header { padding: 2rem 1.2rem; }
+    main { padding: 1.5rem 1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">IFB — Instituto Federal de Brasília · Material Docente</div>
+  <h1>Integridade Científica<br>& <span>Uso de IA</span> na Pesquisa</h1>
+  <p class="header-sub">Guia para alunos de Métodos de Pesquisa e TCC — à luz da Portaria CNPq nº 2.664/2026</p>
+  <div class="header-meta">
+    <div><span>Base legal:</span> Portaria CNPq 2.664/2026</div>
+    <div><span>Público:</span> Graduação / TCC</div>
+    <div><span>Atualizado:</span> Junho 2026</div>
+  </div>
+</header>
+
+<nav>
+  <button class="nav-btn active" onclick="showSection('fundamentos')">Fundamentos</button>
+  <button class="nav-btn" onclick="showSection('ia')">IA na Pesquisa</button>
+  <button class="nav-btn" onclick="showSection('autoria')">Autoria & Plágio</button>
+  <button class="nav-btn" onclick="showSection('infracoes')">Infrações</button>
+  <button class="nav-btn" onclick="showSection('checklist')">Checklist TCC</button>
+  <button class="nav-btn" onclick="showSection('quiz')">Quiz</button>
+</nav>
+
+<main>
+
+<!-- SEÇÃO 1: FUNDAMENTOS -->
+<section id="fundamentos" class="section active">
+  <button class="print-btn" onclick="window.print()">⬡ Imprimir</button>
+  <div class="section-label">Seção 01 — Contexto</div>
+  <h2>Por que integridade científica importa?</h2>
+
+  <p>A ciência avança porque confiamos uns nos outros. Quando um pesquisador publica um resultado, outros constroem sobre ele. Se esse resultado for fabricado ou distorcido, toda a cadeia científica é comprometida. Integridade não é burocracia — é o que faz a ciência funcionar.</p>
+
+  <div class="highlight">
+    <h4>O que mudou com a Portaria CNPq 2.664/2026?</h4>
+    <p>Em março de 2026, o CNPq publicou sua nova Política de Integridade na Atividade Científica, revogando normas anteriores de 2012 e 2024. A novidade mais importante: <strong>regras formais e explícitas sobre o uso de Inteligência Artificial</strong> em pesquisas. Quem recebe ou pleiteia fomento do CNPq — e instituições como o IFB — estão diretamente sujeitos.</p>
+  </div>
+
+  <h3>Os 4 pilares da política</h3>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">📚</div>
+      <h4>Educação</h4>
+      <p>Promover cultura de integridade desde a formação inicial dos pesquisadores.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🛡️</div>
+      <h4>Prevenção</h4>
+      <p>Estabelecer boas práticas que evitem condutas inadequadas antes que ocorram.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔍</div>
+      <h4>Apuração</h4>
+      <p>Investigar denúncias formais através de Comissão específica (CIAC).</p>
+    </div>
+    <div class="card warn">
+      <div class="card-icon">⚖️</div>
+      <h4>Sanção</h4>
+      <p>Aplicar penalidades proporcionais à gravidade da infração — incluindo suspensão do Lattes.</p>
+    </div>
+  </div>
+
+  <h3>A quem se aplica?</h3>
+  <p>Mesmo que você ainda seja estudante, a portaria já te afeta se você:</p>
+
+  <div class="alert green">
+    <span class="alert-icon">✓</span>
+    <p>Tem ou vai ter Currículo Lattes — as regras sobre veracidade das informações se aplicam a todos os usuários da plataforma.</p>
+  </div>
+  <div class="alert green">
+    <span class="alert-icon">✓</span>
+    <p>Participar de projetos de pesquisa apoiados pelo CNPq como bolsista ou colaborador(a).</p>
+  </div>
+  <div class="alert green">
+    <span class="alert-icon">✓</span>
+    <p>Publicar artigos derivados do TCC em coautoria com seu(sua) orientador(a).</p>
+  </div>
+  <div class="alert yellow">
+    <span class="alert-icon">!</span>
+    <p>Mesmo sem vinculação formal ao CNPq agora, as normas desta portaria refletem o padrão ético que toda a comunidade científica brasileira está adotando progressivamente.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>O Currículo Lattes sob nova perspectiva</h3>
+  <p>A portaria torna explícito que informações <strong>inconsistentes ou inverídicas no Lattes</strong> constituem infração — leve ou grave dependendo do impacto. Desde o início da vida acadêmica, cuide do seu Lattes como cuida de um documento oficial.</p>
+</section>
+
+<!-- SEÇÃO 2: IA -->
+<section id="ia" class="section">
+  <div class="section-label">Seção 02 — Inteligência Artificial</div>
+  <h2>IA na pesquisa: o que mudou</h2>
+
+  <div class="alert red">
+    <span class="alert-icon">🚫</span>
+    <p><strong>Regra central:</strong> Submeter conteúdo gerado por IA como se fosse de autoria humana é uma violação da Portaria 2.664/2026. A responsabilidade pelo conteúdo — incluindo plágios ou erros gerados pela IA — é <strong>integralmente do pesquisador</strong>.</p>
+  </div>
+
+  <p>Isso não significa que você não pode usar IA. Significa que precisa <strong>declarar, controlar e assumir responsabilidade</strong> por qualquer uso.</p>
+
+  <h3>O que precisa ser declarado</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Fase da pesquisa</th>
+          <th>Exemplo de uso de IA</th>
+          <th>Declarar?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Concepção</td><td>Usar IA para explorar lacunas de pesquisa ou gerar ideias de tema</td><td>✅ Sim</td></tr>
+        <tr><td>Revisão de literatura</td><td>Usar ferramentas como Perplexity ou Consensus para mapear referências</td><td>✅ Sim</td></tr>
+        <tr><td>Redação</td><td>Usar IA para redigir seções, resumos ou parágrafos</td><td>✅ Sim</td></tr>
+        <tr><td>Análise de dados</td><td>Usar IA para categorizar respostas, identificar padrões</td><td>✅ Sim</td></tr>
+        <tr><td>Revisão gramatical</td><td>Usar corretor automático básico (Word, Grammarly simples)</td><td>⚠️ Contexto</td></tr>
+        <tr><td>Tradução</td><td>Usar DeepL ou Google Tradutor</td><td>⚠️ Contexto</td></tr>
+        <tr><td>Submissão</td><td>Usar IA para formatar referências ou ajustar estilo</td><td>✅ Sim</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Como declarar o uso de IA</h3>
+  <p>A portaria exige que você especifique <strong>a ferramenta e a finalidade</strong>. Veja modelos de declaração:</p>
+
+  <div class="template-box">
+    <div class="label">Modelo 1 — Nota de rodapé em artigo ou TCC</div>
+    "Esta pesquisa utilizou a ferramenta de Inteligência Artificial Generativa <span class="fill">[nome da ferramenta, ex: Claude/Anthropic, versão X]</span> na fase de <span class="fill">[finalidade, ex: revisão linguística dos parágrafos introdutórios]</span>. Todo o conteúdo foi revisado, corrigido e assumido como responsabilidade exclusiva dos autores."
+  </div>
+
+  <div class="template-box">
+    <div class="label">Modelo 2 — Seção de Metodologia</div>
+    "Para <span class="fill">[análise de dados / organização de categorias / outro]</span>, foi utilizada a ferramenta <span class="fill">[nome]</span>. Os resultados gerados foram verificados manualmente por <span class="fill">[procedimento]</span>. Os autores assumem integral responsabilidade pelo conteúdo final, incluindo a precisão das informações produzidas com auxílio da ferramenta."
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>O que é terminantemente vedado</h3>
+
+  <div class="card-grid">
+    <div class="card warn">
+      <div class="card-icon">🚫</div>
+      <h4>Submissão sem declaração</h4>
+      <p>Entregar trabalho gerado por IA sem informar o uso — mesmo que você tenha revisado.</p>
+    </div>
+    <div class="card warn">
+      <div class="card-icon">🚫</div>
+      <h4>Parecer gerado por IA</h4>
+      <p>Inserir projetos de terceiros em ferramentas de IA para elaborar pareceres científicos.</p>
+    </div>
+    <div class="card warn">
+      <div class="card-icon">🚫</div>
+      <h4>Autoria à IA</h4>
+      <p>Listar uma IA como autora de trabalho científico — a IA não pode ser autora.</p>
+    </div>
+    <div class="card warn">
+      <div class="card-icon">🚫</div>
+      <h4>Terceirização total</h4>
+      <p>Delegar à IA a escrita completa de seções sem revisão crítica e responsabilização.</p>
+    </div>
+  </div>
+
+  <div class="alert yellow">
+    <span class="alert-icon">💡</span>
+    <p><strong>Dica prática:</strong> Trate a IA como um assistente de pesquisa — útil, mas que não substitui seu julgamento. Você é responsável por cada afirmação do trabalho, mesmo que a IA a tenha sugerido. Isso inclui verificar referências que a IA "cita" — elas frequentemente não existem.</p>
+  </div>
+</section>
+
+<!-- SEÇÃO 3: AUTORIA E PLÁGIO -->
+<section id="autoria" class="section">
+  <div class="section-label">Seção 03 — Autoria & Plágio</div>
+  <h2>Autoria, Plágio e Autoplágio</h2>
+
+  <h3>Quem pode ser autor(a) de um trabalho científico?</h3>
+  <p>A portaria segue as diretrizes internacionais (ICMJE): autor é quem contribuiu <strong>significativamente</strong> para o trabalho. Não basta aparecer no projeto, ajudar com formatação ou coletar alguns dados.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Contribuição</th>
+          <th>Conta para autoria?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Concepção e desenho da pesquisa</td><td>✅ Sim</td></tr>
+        <tr><td>Coleta e/ou análise de dados</td><td>✅ Sim (se substancial)</td></tr>
+        <tr><td>Interpretação dos resultados</td><td>✅ Sim</td></tr>
+        <tr><td>Redação ou revisão crítica do manuscrito</td><td>✅ Sim</td></tr>
+        <tr><td>Apenas orientação geral do projeto</td><td>⚠️ Depende da contribuição efetiva</td></tr>
+        <tr><td>Apenas financiamento</td><td>❌ Não</td></tr>
+        <tr><td>Apenas coleta de dados por instrução</td><td>❌ Não</td></tr>
+        <tr><td>Amizade com o pesquisador principal</td><td>❌ Não — isso é autoria honorária, é infração</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert red">
+    <span class="alert-icon">⚠️</span>
+    <p><strong>Compra e venda de autoria</strong> — incluir ou excluir autores mediante pagamento ou favores — é infração <strong>gravíssima</strong> na portaria, sujeita às sanções mais severas.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Plágio — além do "copiar e colar"</h3>
+  <p>O plágio na portaria é definido de forma ampla: apresentar resultados, conclusões, textos, <strong>ideias</strong> ou dados de terceiros como se próprios fossem, sem referência adequada.</p>
+
+  <div class="card-grid">
+    <div class="card warn">
+      <div class="card-icon">📋</div>
+      <h4>Plágio direto</h4>
+      <p>Copiar trecho de texto sem aspas e sem citação. O mais conhecido.</p>
+    </div>
+    <div class="card warn">
+      <div class="card-icon">✏️</div>
+      <h4>Plágio de paráfrase</h4>
+      <p>Reescrever ideias de outro autor com palavras diferentes, sem citar a fonte.</p>
+    </div>
+    <div class="card warn">
+      <div class="card-icon">💡</div>
+      <h4>Plágio de ideia</h4>
+      <p>Usar o argumento central, a hipótese ou a estrutura teórica de outro sem creditar.</p>
+    </div>
+    <div class="card warn">
+      <div class="card-icon">🤖</div>
+      <h4>Plágio via IA</h4>
+      <p>Usar IA que reproduziu conteúdo protegido — você continua responsável pelo resultado.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Autoplágio — o que muitos desconhecem</h3>
+
+  <div class="alert yellow">
+    <span class="alert-icon">!</span>
+    <p><strong>Autoplágio</strong> é publicar total ou parcialmente um texto <em>seu próprio</em> já publicado, sem informar isso ao leitor. É infração <strong>grave</strong> na portaria — mesmo sendo "seu" texto.</p>
+  </div>
+
+  <p>Exemplos comuns na vida acadêmica:</p>
+  <ul style="margin: 0.5rem 0 1rem 1.5rem; font-size: 0.9rem; line-height: 1.9;">
+    <li>Usar a metodologia do TCC num artigo sem citar o TCC como versão anterior</li>
+    <li>Submeter o mesmo artigo a dois periódicos diferentes sem informar</li>
+    <li>Republicar resultados de um capítulo de dissertação num artigo sem menção à origem</li>
+    <li>Reutilizar texto da monografia de especialização na dissertação de mestrado</li>
+  </ul>
+
+  <div class="highlight">
+    <h4>Como evitar o autoplágio legitimamente</h4>
+    <p>Declare explicitamente versões anteriores. Frases como "Este artigo é uma versão expandida de trabalho apresentado em..." ou "Os dados aqui analisados foram parcialmente discutidos em..." são suficientes — e são boas práticas científicas.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>Salami Science — fragmentação indevida</h3>
+  <p>Dividir artificialmente os resultados de uma só pesquisa em vários artigos para "publicar mais" é infração <strong>gravíssima</strong>. O critério é simples: os resultados fazem sentido separados, ou só fazem sentido juntos?</p>
+</section>
+
+<!-- SEÇÃO 4: INFRAÇÕES -->
+<section id="infracoes" class="section">
+  <div class="section-label">Seção 04 — Infrações & Sanções</div>
+  <h2>O que é infração e quais são as consequências</h2>
+
+  <p>A portaria classifica as infrações em três níveis. Quanto mais grave, mais severa a sanção — e mais irreversível o impacto na carreira.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nível</th>
+          <th>Exemplos</th>
+          <th>Sanções possíveis</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge leve">Leve</span></td>
+          <td>Informação inconsistente no Lattes sem impacto na avaliação de produtividade; erros sem dolo ou fraude</td>
+          <td>Advertência formal; correção exigida</td>
+        </tr>
+        <tr>
+          <td><span class="badge grave">Grave</span></td>
+          <td>Autoplágio; inconsistência no Lattes que afete avaliação de produtividade; denúncia falsa sobre outro pesquisador</td>
+          <td>Suspensão de bolsas; impedimento em editais; suspensão do Lattes (3 meses a 1 ano)</td>
+        </tr>
+        <tr>
+          <td><span class="badge gravissima">Gravíssima</span></td>
+          <td>Fabricação/falsificação de dados; plágio; compra/venda de autoria; assédio; discriminação; nepotismo; retaliação a denunciantes; burla de processos avaliativos</td>
+          <td>Revogação de fomento; devolução de recursos; suspensão prolongada; impedimento permanente em comitês</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert red">
+    <span class="alert-icon">⚖️</span>
+    <p><strong>Atenção:</strong> A portaria é explícita — grau acadêmico, prêmios, cargos ou reconhecimentos <strong>não serão considerados</strong> para reduzir a sanção. Ser doutor(a) ou professor(a) experiente não atenua a penalidade.</p>
+  </div>
+
+  <h3>A Comissão de Integridade (CIAC)</h3>
+  <p>O órgão responsável por apurar infrações graves e gravíssimas é a <strong>Comissão de Integridade na Atividade Científica</strong>, composta pelo Diretor Científico do CNPq e por 4 pesquisadores externos representando as grandes áreas do conhecimento.</p>
+
+  <div class="card-grid">
+    <div class="card blue">
+      <div class="card-icon">📢</div>
+      <h4>Como denunciar</h4>
+      <p>Pela Plataforma <strong>Fala.BR</strong> — o canal oficial do governo federal para denúncias à Ouvidoria do CNPq.</p>
+    </div>
+    <div class="card blue">
+      <div class="card-icon">🔒</div>
+      <h4>Sigilo e proteção</h4>
+      <p>O processo tramita sob sigilo. A portaria proíbe explicitamente <strong>retaliação contra denunciantes</strong> — e retaliar é infração gravíssima.</p>
+    </div>
+    <div class="card blue">
+      <div class="card-icon">🛡️</div>
+      <h4>Direito de defesa</h4>
+      <p>Todo(a) denunciado(a) tem direito à <strong>ampla defesa e contraditório</strong>, incluindo recurso à Diretoria Executiva e ao Presidente do CNPq.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEÇÃO 5: CHECKLIST -->
+<section id="checklist" class="section">
+  <div class="section-label">Seção 05 — Checklist</div>
+  <h2>Checklist de Integridade para o TCC</h2>
+  <p>Use esta lista antes de entregar qualquer versão do seu trabalho. Clique em cada item para marcar como concluído.</p>
+
+  <h3>📝 Texto e Conteúdo</h3>
+  <ul class="checklist" id="cl1">
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Todas as citações diretas estão entre aspas e com referência completa (autor, ano, página)</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Todas as paráfrases e ideias de outros autores estão devidamente citadas</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Não há trechos de textos anteriores meus reutilizados sem menção à versão original</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Todas as referências bibliográficas correspondem a obras que de fato consultei</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Não há referências incluídas apenas para "engordar" a lista ou inflar fator de impacto</div>
+    </li>
+  </ul>
+
+  <h3>🤖 Uso de Inteligência Artificial</h3>
+  <ul class="checklist" id="cl2">
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Declarei todo uso de ferramentas de IA generativa, especificando a ferramenta e a finalidade</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Verifiquei manualmente todas as afirmações, dados e referências gerados por IA</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Não há seções escritas integralmente por IA sem revisão crítica e responsabilização minha</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Não inseri projetos ou trabalhos de terceiros em ferramentas de IA</div>
+    </li>
+  </ul>
+
+  <h3>👥 Autoria</h3>
+  <ul class="checklist" id="cl3">
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Todos os autores listados contribuíram efetivamente para o trabalho</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Ninguém que contribuiu significativamente foi excluído da autoria</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Consigo descrever a contribuição individual de cada autor(a) se solicitado</div>
+    </li>
+  </ul>
+
+  <h3>📊 Dados e Metodologia</h3>
+  <ul class="checklist" id="cl4">
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Os dados apresentados são reais e não foram manipulados ou selecionados de forma tendenciosa</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Limitações e evidências contrárias às hipóteses estão relatadas de forma transparente</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Os dados primários estão guardados e organizados para eventual verificação</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Há aprovação do Comitê de Ética (CAAE) se a pesquisa envolveu seres humanos</div>
+    </li>
+  </ul>
+
+  <h3>📋 Currículo Lattes</h3>
+  <ul class="checklist" id="cl5">
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Meu Lattes está atualizado com informações verídicas</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Não há produções listadas que ainda não foram concluídas ou aceitas</div>
+    </li>
+    <li>
+      <div class="check-box" onclick="toggleCheck(this)"></div>
+      <div class="check-text">Titulações e vínculos institucionais estão corretos e atualizados</div>
+    </li>
+  </ul>
+
+  <div class="highlight" style="margin-top: 2rem;">
+    <h4>Salve este checklist</h4>
+    <p>Use o botão "Imprimir" no topo da página para gerar uma versão PDF deste checklist. Recomenda-se entregar uma cópia assinada junto com o TCC como declaração de integridade.</p>
+  </div>
+</section>
+
+<!-- SEÇÃO 6: QUIZ -->
+<section id="quiz" class="section">
+  <div class="section-label">Seção 06 — Quiz</div>
+  <h2>Quiz de verificação</h2>
+  <p>Teste seu entendimento sobre integridade científica. 10 questões baseadas na Portaria CNPq 2.664/2026.</p>
+
+  <div class="quiz-container" id="quizContainer">
+
+    <div class="quiz-question" id="q1">
+      <div class="quiz-num">Questão 01 / 10</div>
+      <div class="quiz-text">Você usou o ChatGPT para redigir o resumo do seu artigo científico e depois revisou e ajustou o texto. O que você deve fazer?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q1', false)">Nada — como revisou o texto, é de sua autoria.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q1', true)">Declarar o uso da ferramenta, especificando que foi usada na redação do resumo.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q1', false)">Apenas mencionar em agradecimentos que usou "ferramentas digitais".</button>
+        <button class="quiz-opt" onclick="answer(this, 'q1', false)">Reescrever todo o resumo manualmente para não precisar declarar.</button>
+      </div>
+      <div class="quiz-feedback" id="f1"></div>
+    </div>
+
+    <div class="quiz-question" id="q2">
+      <div class="quiz-num">Questão 02 / 10</div>
+      <div class="quiz-text">Seu professor pediu que você e um colega escrevessem um artigo juntos. Seu colega contribuiu apenas formatando as referências. Ele pode aparecer como coautor?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q2', false)">Sim, qualquer forma de contribuição justifica autoria.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q2', true)">Não — autoria exige contribuição significativa; formatação de referências não é suficiente.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q2', false)">Sim, desde que o professor autorize.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q2', false)">Depende do periódico.</button>
+      </div>
+      <div class="quiz-feedback" id="f2"></div>
+    </div>
+
+    <div class="quiz-question" id="q3">
+      <div class="quiz-num">Questão 03 / 10</div>
+      <div class="quiz-text">Você usou dois parágrafos do seu TCC numa seção de metodologia de um artigo que está escrevendo. Isso é:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q3', false)">Permitido, pois o texto é seu.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q3', false)">Permitido se o TCC não foi publicado oficialmente.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q3', true)">Autoplágio, se você não informar que o texto já foi publicado/apresentado no TCC.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q3', false)">Prática comum e aceita sem restrições.</button>
+      </div>
+      <div class="quiz-feedback" id="f3"></div>
+    </div>
+
+    <div class="quiz-question" id="q4">
+      <div class="quiz-num">Questão 04 / 10</div>
+      <div class="quiz-text">Uma ferramenta de IA "inventou" uma referência bibliográfica que você incluiu no trabalho sem verificar. Quem é responsável?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q4', false)">A empresa desenvolvedora da IA.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q4', false)">Ninguém — é um erro técnico da ferramenta.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q4', true)">Você, o pesquisador — a responsabilidade pelo conteúdo final é integralmente sua.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q4', false)">Seu orientador, por não ter verificado.</button>
+      </div>
+      <div class="quiz-feedback" id="f4"></div>
+    </div>
+
+    <div class="quiz-question" id="q5">
+      <div class="quiz-num">Questão 05 / 10</div>
+      <div class="quiz-text">Publicar os resultados de uma pesquisa divididos em três artigos separados, quando deveriam estar juntos, é chamado de:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q5', false)">Publicação incrementada</button>
+        <button class="quiz-opt" onclick="answer(this, 'q5', true)">Salami Science — e é infração gravíssima.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q5', false)">Autoplágio</button>
+        <button class="quiz-opt" onclick="answer(this, 'q5', false)">Publicação paralela</button>
+      </div>
+      <div class="quiz-feedback" id="f5"></div>
+    </div>
+
+    <div class="quiz-question" id="q6">
+      <div class="quiz-num">Questão 06 / 10</div>
+      <div class="quiz-text">Informações inconsistentes no Currículo Lattes que afetam a avaliação de produtividade de um pesquisador são classificadas como infração:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q6', false)">Leve</button>
+        <button class="quiz-opt" onclick="answer(this, 'q6', true)">Grave</button>
+        <button class="quiz-opt" onclick="answer(this, 'q6', false)">Gravíssima</button>
+        <button class="quiz-opt" onclick="answer(this, 'q6', false)">Não é infração — o Lattes é auto-declaratório.</button>
+      </div>
+      <div class="quiz-feedback" id="f6"></div>
+    </div>
+
+    <div class="quiz-question" id="q7">
+      <div class="quiz-num">Questão 07 / 10</div>
+      <div class="quiz-text">Um pesquisador sênior e premiado é investigado por fabricação de dados. Sua trajetória brilhante pode reduzir a penalidade?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q7', false)">Sim — trajetória reconhecida é fator atenuante.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q7', false)">Depende do histórico e do tempo de carreira.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q7', true)">Não — a portaria é explícita: prêmios e cargos não são considerados para dosimetria da sanção.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q7', false)">Sim, se ele reconhecer o erro voluntariamente.</button>
+      </div>
+      <div class="quiz-feedback" id="f7"></div>
+    </div>
+
+    <div class="quiz-question" id="q8">
+      <div class="quiz-num">Questão 08 / 10</div>
+      <div class="quiz-text">Você sabe de uma suspeita de plágio praticada por um colega em projeto financiado pelo CNPq. Para onde encaminhar a denúncia?</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q8', false)">Diretamente ao orientador do colega.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q8', false)">Ao periódico onde o trabalho foi publicado.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q8', true)">À Ouvidoria do CNPq, via Plataforma Fala.BR.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q8', false)">Não há canal formal — deve-se resolver internamente.</button>
+      </div>
+      <div class="quiz-feedback" id="f8"></div>
+    </div>
+
+    <div class="quiz-question" id="q9">
+      <div class="quiz-num">Questão 09 / 10</div>
+      <div class="quiz-text">Parafrasear o argumento central de um autor sem citá-lo é:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q9', false)">Permitido — paráfrase não é cópia.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q9', true)">Plágio — a portaria inclui ideias e argumentos, não só textos literais.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q9', false)">Aceitável se a ideia for "de conhecimento comum".</button>
+        <button class="quiz-opt" onclick="answer(this, 'q9', false)">Uma prática tolerada na área de Humanas.</button>
+      </div>
+      <div class="quiz-feedback" id="f9"></div>
+    </div>
+
+    <div class="quiz-question" id="q10">
+      <div class="quiz-num">Questão 10 / 10</div>
+      <div class="quiz-text">Retaliar um colega que denunciou uma má conduta científica é:</div>
+      <div class="quiz-options">
+        <button class="quiz-opt" onclick="answer(this, 'q10', false)">Compreensível, mas não punível pela portaria.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q10', false)">Infração leve.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q10', false)">Infração grave.</button>
+        <button class="quiz-opt" onclick="answer(this, 'q10', true)">Infração gravíssima — a portaria protege explicitamente os denunciantes.</button>
+      </div>
+      <div class="quiz-feedback" id="f10"></div>
+    </div>
+
+  </div>
+
+  <div class="quiz-score" id="quizScore">
+    <div class="quiz-score-num" id="scoreNum">0/10</div>
+    <div class="quiz-score-label">respostas corretas</div>
+    <p id="scoreMsg" style="margin-top: 1rem; font-size: 0.88rem; color: rgba(245,240,232,0.7);"></p>
+    <button class="btn-reset" onclick="resetQuiz()">Tentar novamente</button>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>IFB — Instituto Federal de Brasília</strong> · Material de apoio docente<br>
+  Base normativa: Portaria CNPq nº 2.664, de 6 de março de 2026 · Publicada no DOU de 11/03/2026
+</footer>
+
+<script>
+  // NAV
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // CHECKLIST
+  function toggleCheck(box) {
+    box.classList.toggle('checked');
+    box.textContent = box.classList.contains('checked') ? '✓' : '';
+    const text = box.nextElementSibling;
+    text.classList.toggle('checked');
+  }
+
+  // QUIZ
+  const answers = {
+    q1: 1, q2: 1, q3: 2, q4: 2, q5: 1,
+    q6: 1, q7: 2, q8: 2, q9: 1, q10: 3
+  };
+
+  const feedbacks = {
+    q1: { ok: "Correto! Mesmo após revisão, o uso de IAG deve ser declarado, especificando a ferramenta e a finalidade (neste caso, redação do resumo).", no: "Incorreto. A Portaria 2.664/2026 exige declaração do uso de IAG em qualquer fase, inclusive redação — independentemente de revisão posterior." },
+    q2: { ok: "Correto! Pela portaria, autoria exige contribuição significativa à concepção, análise, interpretação ou redação. Formatação de referências não atinge esse patamar.", no: "Incorreto. A portaria proíbe autoria sem contribuição efetiva. Formatação de referências não é suficiente para justificar coautoria." },
+    q3: { ok: "Correto! Reutilizar texto próprio já apresentado sem mencionar a versão anterior é autoplágio, infração grave na portaria.", no: "Incorreto. Mesmo sendo texto seu, reutilizá-lo sem citar a versão original configura autoplágio — infração grave na Portaria 2.664/2026." },
+    q4: { ok: "Correto! A portaria é explícita: os autores são integralmente responsáveis pelo conteúdo final, inclusive por eventuais imprecisões geradas pela IA.", no: "Incorreto. Você, como pesquisador(a), é integralmente responsável pelo conteúdo final — incluindo erros gerados por ferramentas de IA que você usou." },
+    q5: { ok: "Correto! Salami Science (publicação fragmentada) é infração gravíssima na portaria — a prática de dividir artificialmente resultados para aumentar número de publicações.", no: "Incorreto. A prática correta se chama Salami Science e é classificada como infração gravíssima pela Portaria 2.664/2026." },
+    q6: { ok: "Correto! A portaria classifica como infração grave a inserção de informações inconsistentes no Lattes quando há efeito sobre a avaliação de produtividade.", no: "Incorreto. A portaria distingue: inconsistência sem impacto na avaliação é infração leve; com impacto na avaliação de produtividade é infração grave." },
+    q7: { ok: "Correto! O Art. 36 da portaria é explícito: grau acadêmico, premiações e reconhecimentos não serão considerados para dosimetria da sanção.", no: "Incorreto. A portaria veda expressamente o uso de trajetória acadêmica como atenuante. A sanção é dosada pela gravidade da conduta, não pela carreira." },
+    q8: { ok: "Correto! O canal formal é a Ouvidoria do CNPq via Plataforma Fala.BR. A portaria garante sigilo do processo e proíbe retaliação ao denunciante.", no: "Incorreto. O canal formal é a Plataforma Fala.BR (Ouvidoria do CNPq). Denúncias informais ou diretas não têm o mesmo respaldo legal." },
+    q9: { ok: "Correto! A portaria define plágio de forma ampla: inclui ideias, argumentos e conclusões de terceiros — não apenas texto literal.", no: "Incorreto. A portaria define plágio como a apresentação de 'resultados, conclusões, textos, ideias ou dados de terceiros como se próprios fossem' — paráfrase sem citação é plágio." },
+    q10: { ok: "Correto! A portaria protege explicitamente os denunciantes e classifica retaliação contra eles como infração gravíssima — sujeita às sanções mais severas.", no: "Incorreto. Retaliar denunciantes é infração gravíssima pela portaria, que protege explicitamente quem fornece informações sobre má conduta científica." }
+  };
+
+  let answered = {};
+  let correct = 0;
+
+  function answer(btn, qid, isCorrect) {
+    if (answered[qid]) return;
+    answered[qid] = true;
+    correct += isCorrect ? 1 : 0;
+
+    const opts = btn.parentElement.querySelectorAll('.quiz-opt');
+    opts.forEach(o => { o.disabled = true; });
+
+    // Mark correct answer
+    const qEl = document.getElementById(qid);
+    const allOpts = qEl.querySelectorAll('.quiz-opt');
+    const correctIdx = answers[qid];
+    allOpts[correctIdx].classList.add('correct-ans');
+    if (!isCorrect) btn.classList.add('wrong-ans');
+
+    const fb = document.getElementById('f' + qid.slice(1));
+    fb.textContent = isCorrect ? '✓ ' + feedbacks[qid].ok : '✗ ' + feedbacks[qid].no;
+    fb.className = 'quiz-feedback show ' + (isCorrect ? 'ok' : 'no');
+
+    if (Object.keys(answered).length === 10) {
+      setTimeout(showScore, 600);
+    }
+  }
+
+  function showScore() {
+    const scoreEl = document.getElementById('quizScore');
+    document.getElementById('scoreNum').textContent = correct + '/10';
+    const msgs = [
+      [0,4, "Continue estudando — a integridade científica é fundamental para sua trajetória acadêmica."],
+      [5,7, "Bom início! Revise os conceitos sobre IA e autoria, que são as novidades mais importantes da portaria."],
+      [8,9, "Muito bem! Você domina os principais conceitos. Revise o item em que errou."],
+      [10,10,"Parabéns! Você demonstra sólido entendimento da Portaria CNPq 2.664/2026."]
+    ];
+    const msg = msgs.find(([min,max]) => correct >= min && correct <= max);
+    document.getElementById('scoreMsg').textContent = msg[2];
+    scoreEl.classList.add('show');
+    scoreEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function resetQuiz() {
+    answered = {}; correct = 0;
+    document.querySelectorAll('.quiz-question').forEach(q => {
+      q.classList.remove('correct','incorrect');
+    });
+    document.querySelectorAll('.quiz-opt').forEach(o => {
+      o.disabled = false;
+      o.classList.remove('correct-ans','wrong-ans');
+    });
+    document.querySelectorAll('.quiz-feedback').forEach(f => {
+      f.className = 'quiz-feedback';
+      f.textContent = '';
+    });
+    document.getElementById('quizScore').classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
